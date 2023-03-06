@@ -4,10 +4,7 @@ import random
 
 
 def generate_random_word():
-    # random_dict = list_data[random.randint(0, len(list_data)-1)]
-
     random_dict = random.choice(list_data)
-
     random_french_word = random_dict['French']
     global title_english
     title_english = list(random_dict.keys())[1]
@@ -17,25 +14,20 @@ def generate_random_word():
     canvas.itemconfigure(card_title, text=f"{list(random_dict.keys())[0]}", fill="black")
     canvas.itemconfig(card_word, text=f"{random_french_word}", fill="black")
     # print(translation)
-
+    global flip
+    flip = window.after(3000, flip_card)
     return list(random_dict.keys())[0], random_french_word, list(random_dict.keys())[1], translation
 
 def flip_card():
-    # title = generate_random_word()[2]
-    # word = generate_random_word()[3]
+
     canvas.itemconfig(french_image, image=new_image)
     canvas.itemconfig(card_title, text=f"{title_english}", fill="white")
     canvas.itemconfig(card_word, text=f"{translation}", fill="white")
-    global flip
-    flip = window.after(3000, flip_card)
 
 
 data = pandas.read_csv("data/french_words.csv")
 list_data = data.to_dict(orient="records")
-# print(list_data)
 
-# title_english = ''
-# translation = ''
 
 BACKGROUND_COLOR = "#B1DDC6"
 
